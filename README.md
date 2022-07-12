@@ -1,0 +1,1 @@
+# rick-and-morty-projeto03-pt02-blueedtech
