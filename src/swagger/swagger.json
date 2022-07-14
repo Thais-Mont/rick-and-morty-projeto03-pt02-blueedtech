@@ -1,0 +1,353 @@
+
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Rick and Morty",
+    "description": "API para CRUD de projeto Rick and Morty",
+    "termsOfService": "",
+    "contact": {
+      "email": "thais.vmonteiro@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/characters",
+      "description": "API de teste"
+    },
+    {
+      "url": "https://api-elgeladon.herokuapp.com/personagens ",
+      "description": "API de produção"
+    }
+  ],
+  "paths": {
+    "/characters": {
+      "get": {
+        "summary": "Lista de todos os personagens",
+        "description": "Rota responsável por listar todos os personagens",
+        "tags": ["Characters"],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Characters"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/find/{id}": {
+      "get": {
+        "summary": "Busca um personagem pelo ID",
+        "description": "Rota responsável por buscar um personagem pelo ID",
+        "tags": ["Characters"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do personagem para a busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Characters"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/create": {
+      "post": {
+        "summary": "Cadastrar um personagem",
+        "description": "Rota responsável por cadastrar um personagem",
+        "tags": ["Characters"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Characters"
+              },
+              "examples": {
+                "Characters ": {
+                  "value": {
+                    "user": "Thais",
+                    "name": "Taddy Mason",
+                    "imageUrl": "https://rickandmortyapi.com/api/character/avatar/341.jpeg"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Characters"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/update/{id}": {
+      "put": {
+        "summary": "Editar um personagem pelo ID",
+        "description": "Rota responsável por editar um personagem pelo ID",
+        "tags": ["Characters"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do personagem para a busca",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Characters"
+              },
+              "examples": {
+                "Characters ": {
+                  "value": {
+                    "user": "Thais",
+                    "name": "Taddy Mason Editado",
+                    "imageUrl": "https://rickandmortyapi.com/api/character/avatar/341.jpeg"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Characters"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/delete/{id}": {
+      "delete": {
+        "summary": "Apagar um personagem pelo ID",
+        "description": "Rota responsável por apagar um personagem pelo ID",
+        "tags": ["Characters"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do personagem para deleção",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Entrar na API do Rick and Morty",
+        "description": "Login para acessar API",
+        "operationId": "login",
+        "tags": ["Auth"],
+        "requestBody": {
+          "description": "email and password",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              },
+              "example": {
+                "email": "thais.vmonteiro@gmail.com",
+                "password": "12345"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Lista de todos os usuários",
+        "description": "Rota responsável por listar todos os usuários",
+        "tags": ["Users"],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Users"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/create": {
+      "post": {
+        "summary": "Cadastrar usuário",
+        "description": "Rota responsável por cadastrar usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "Users": {
+                  "value": [
+                    {
+                      "name": "Show Man",
+                      "username": "showmancode",
+                      "email": "showmancode@gmail.com",
+                      "password": "12345",
+                      "photo": "https://veja.abril.com.br/wp-content/uploads/2020/09/1-GettyImages-517387700.jpg.jpg"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Carrinho"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "Characters": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        }
+      }
+
+    }
+  }
+}
