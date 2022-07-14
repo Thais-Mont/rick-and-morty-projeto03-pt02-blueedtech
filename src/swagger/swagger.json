@@ -16,7 +16,7 @@
       "description": "API do Heroku"
     },
     {
-      "url": "https://api-elgeladon.herokuapp.com/personagens ",
+      "url": "https://api-rick-and-morty-blueedtech.herokuapp.com/personagens ",
       "description": "API de produção"
     }
   ],
