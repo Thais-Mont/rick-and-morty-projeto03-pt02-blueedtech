@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const PersonagemSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
   name: {
     type: String,
     required: true
@@ -11,6 +16,6 @@ const PersonagemSchema = new mongoose.Schema({
   }
 });
 
-const Personagem = mongoose.model('api-personagens', PersonagemSchema);
+const Personagem = mongoose.model('Characters', PersonagemSchema);
 
 module.exports = Personagem;
