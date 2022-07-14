@@ -12,8 +12,8 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001/characters",
-      "description": "API de teste"
+      "url": "https://api-rick-and-morty-blueedtech.herokuapp.com",
+      "description": "API do Heroku"
     },
     {
       "url": "https://api-elgeladon.herokuapp.com/personagens ",
