@@ -190,7 +190,7 @@
             "description": "ID of the task to get, 24 character hexadecimal",
             "schema": {
               "type": "string",
-              "example": "62cb40770bffe12e18c1aac5"
+              "example": "62d0c3948b1e34732753c2a3"
             }
           }
         ],

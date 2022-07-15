@@ -31,10 +31,15 @@ npm run dev
 ```
 
 ```
-abrir servidor local http://localhost:3000
+abrir servidor local http://localhost:3001
 ```
+### Documentação Swagger
 
-### Sugestão de Testes
+Você pode acessar a documentação swagger e fazer testes dos endpoints através do
+link:
+https://api-rick-and-morty-blueedtech.herokuapp.com/api-docs
+
+### Sugestão de Testes Local
 
 * Instalar extensão VSCode Thunder Client;
 ![Capturar](https://user-images.githubusercontent.com/78213513/175385722-155e1f2c-8bed-477d-ac13-853b2f3c0a41.PNG)
