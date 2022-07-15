@@ -37,7 +37,10 @@ abrir servidor local http://localhost:3001
 
 Você pode acessar a documentação swagger e fazer testes dos endpoints através do
 link:
-https://api-rick-and-morty-blueedtech.herokuapp.com/api-docs
+
+https://api-rick-and-morty-blueedtech.herokuapp.com/api-docs/
+
+![swagger](https://user-images.githubusercontent.com/78213513/179132015-b7446c2d-3a88-4724-bdf9-2f916cfbe417.PNG)
 
 ### Sugestão de Testes Local
 
