@@ -47,31 +47,24 @@ const deletePersonagemController = async (req, res) => {
 };
 
 const searchPersonagemController = async (req, res) => {
-  try {
-    const query = req.query.name;
-
-    if (!query) {
-      return res.status(400).send({ message: 'Personagem não encontrado!' });
+    const { name } = req.query.name;
+  
+    const personagens = await personagensService.searchPersonagemService(name);
+  
+    if (personagens.length === 0) {
+      return res
+        .status(400)
+        .send({ message: "Não existem personagens com esse nome!" });
     }
-
-    const chosenPersonagem = await charService.searchCharService(query);
-
-    if (!chosenPersonagem) {
-      return res.status(404).send({ message: 'Personagem não encontrado!' });
-    }
-
-    res.send({
-      characters: chosenCharacters.map((character) => ({
-        id: character._id,
-        name: character.name,
-        imageUrl: character.imageUrl,
-        user: character.user,
+  
+    return res.send({
+      tweets: personagens.map((personagem) => ({
+        id: personagem._id,
+        name: personagem.user.name,
+        avatar: personagem.user.avatar,
       })),
     });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-};
+  };
 
 module.exports = {
   findAllPersonagensController,
