@@ -274,6 +274,7 @@
                 "$ref": "#/components/schemas/Character"
               },
               "example": {
+                "user": "Thais",
                 "name": "Rick Sanchez",
                 "imageUrl": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
               }
