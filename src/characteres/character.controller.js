@@ -42,10 +42,38 @@ const deletePersonagemController = async (req, res) => {
   res.send({ message: 'Personagem deletado com sucesso!' });
 };
 
+const searchPersonagemController = async (req, res) => {
+  try {
+    const query = req.query.name;
+
+    if (!query) {
+      return res.status(400).send({ message: 'Personagem não encontrado!' });
+    }
+
+    const chosenPersonagem = await charService.searchCharService(query);
+
+    if (!chosenPersonagem) {
+      return res.status(404).send({ message: 'Personagem não encontrado!' });
+    }
+
+    res.send({
+      characters: chosenCharacters.map((character) => ({
+        id: character._id,
+        name: character.name,
+        imageUrl: character.imageUrl,
+        user: character.user,
+      })),
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 module.exports = {
   findAllPersonagensController,
   findByIdPersonagemController,
   createPersonagemController,
   updatePersonagemController,
   deletePersonagemController,
+  searchPersonagemController
 };

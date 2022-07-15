@@ -1,35 +1,29 @@
-
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API Rick and Morty",
-    "description": "API para CRUD de projeto Rick and Morty",
-    "termsOfService": "",
-    "contact": {
-      "email": "thais.vmonteiro@gmail.com"
-    },
+    "title": "API Rick & Morty",
+    "description": "description",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https://api-rick-and-morty-blueedtech.herokuapp.com",
-      "description": "API do Heroku"
+      "url": "https://api-rick-and-morty-blueedtech.herokuapp.com/",
+      "description": "API Produção"
     },
     {
-      "url": "https://api-rick-and-morty-blueedtech.herokuapp.com/personagens ",
-      "description": "API de produção"
+      "url": "http://localhost:3001/",
+      "description": "API de Teste Local"
     }
   ],
   "paths": {
-    "/characters": {
+    "/users": {
       "get": {
-        "summary": "Lista de todos os personagens",
-        "description": "Rota responsável por listar todos os personagens",
-        "tags": ["Characters"],
+        "summary": "Lista de todos os usuários",
+        "description": "Rota responsável por listar todos os usuários",
+        "operationId": "getAllUsers",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
-          "404": {
-            "description": "Not Found"
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -37,163 +31,73 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Characters"
+                    "$ref": "#/components/schemas/User"
                   }
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/characters/find/{id}": {
-      "get": {
-        "summary": "Busca um personagem pelo ID",
-        "description": "Rota responsável por buscar um personagem pelo ID",
-        "tags": ["Characters"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Id do personagem para a busca",
-            "required": true
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
           },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Characters"
-                }
-              }
-            }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/characters/create": {
+    "/users/create": {
       "post": {
-        "summary": "Cadastrar um personagem",
-        "description": "Rota responsável por cadastrar um personagem",
-        "tags": ["Characters"],
+        "summary": "Criação de Novo Usuário",
+        "description": "Criar novo usuário",
+        "operationId": "createUser",
+        "tags": ["Users"],
         "requestBody": {
+          "description": "new user body",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Characters"
+                "$ref": "#/components/schemas/User"
               },
-              "examples": {
-                "Characters ": {
-                  "value": {
-                    "user": "Thais",
-                    "name": "Taddy Mason",
-                    "imageUrl": "https://rickandmortyapi.com/api/character/avatar/341.jpeg"
-                  }
-                }
+              "example": {
+                "name": "Thais Monteiro",
+                "username": "Thais-Mont",
+                "email": "thais.vmonteiro@gmail.com",
+                "password": "12345",
+                "photo": "https://avatars.githubusercontent.com/u/78213513?v=4"
               }
             }
           }
         },
         "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
           "201": {
             "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Characters"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/characters/update/{id}": {
-      "put": {
-        "summary": "Editar um personagem pelo ID",
-        "description": "Rota responsável por editar um personagem pelo ID",
-        "tags": ["Characters"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Id do personagem para a busca",
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Characters"
-              },
-              "examples": {
-                "Characters ": {
-                  "value": {
-                    "user": "Thais",
-                    "name": "Taddy Mason Editado",
-                    "imageUrl": "https://rickandmortyapi.com/api/character/avatar/341.jpeg"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
+          },
           "400": {
             "description": "Bad Request"
           },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Characters"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/characters/delete/{id}": {
-      "delete": {
-        "summary": "Apagar um personagem pelo ID",
-        "description": "Rota responsável por apagar um personagem pelo ID",
-        "tags": ["Characters"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Id do personagem para deleção",
-            "required": true
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "200": {
-            "description": "OK"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/auth/login": {
       "post": {
-        "summary": "Entrar na API do Rick and Morty",
-        "description": "Login para acessar API",
+        "summary": "Autenticação por Login",
+        "description": "validação de login por email e senha",
         "operationId": "login",
         "tags": ["Auth"],
         "requestBody": {
@@ -238,15 +142,14 @@
         }
       }
     },
-    "/users": {
+    "/characters": {
       "get": {
-        "summary": "Lista de todos os usuários",
-        "description": "Rota responsável por listar todos os usuários",
-        "tags": ["Users"],
+        "summary": "Lista todos os personagens",
+        "description": "Listar todos os personagens cadastrados",
+        "operationId": "getAllCharacters",
+        "tags": ["Characters"],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
-          "404": {
-            "description": "Not Found"
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -254,100 +157,280 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Users"
+                    "$ref": "#/components/schemas/Character"
                   }
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/users/create": {
-      "post": {
-        "summary": "Cadastrar usuário",
-        "description": "Rota responsável por cadastrar usuário",
-        "tags": ["Users"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Users"
-              },
-              "examples": {
-                "Users": {
-                  "value": [
-                    {
-                      "name": "Show Man",
-                      "username": "showmancode",
-                      "email": "showmancode@gmail.com",
-                      "password": "12345",
-                      "photo": "https://veja.abril.com.br/wp-content/uploads/2020/09/1-GettyImages-517387700.jpg.jpg"
-                    }
-                  ]
-                }
-              }
+    "/characters/find/{id}": {
+      "get": {
+        "summary": "Busca personagem por ID",
+        "description": "Retorna personagem por ID",
+        "operationId": "getCharacterById",
+        "tags": ["Characters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the task to get, 24 character hexadecimal",
+            "schema": {
+              "type": "string",
+              "example": "62cb40770bffe12e18c1aac5"
             }
           }
-        },
+        ],
         "responses": {
+          "200": {
+            "$ref": "#/components/responses/okSingleCharacter"
+          },
           "400": {
             "description": "Bad Request"
           },
-          "201": {
-            "description": "Created",
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/characters/search": {
+      "get": {
+        "summary": "Busca personagem por nome",
+        "description": "retorna personagem correspondente",
+        "operationId": "searchCharactersByName",
+        "tags": ["Characters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "nome do personagem",
+            "schema": {
+              "type": "string",
+              "example": "Taddy Mason"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Carrinho"
+                    "$ref": "#/components/schemas/User"
                   }
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/characters/create": {
+      "post": {
+        "summary": "Criar um novo Personagem",
+        "description": "Criar um novo Personagem",
+        "operationId": "createCharacter",
+        "tags": ["Characters"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "description": "new character body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Character"
+              },
+              "example": {
+                "name": "Rick Sanchez",
+                "imageUrl": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Character"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/characters/update/{id}": {
+      "put": {
+        "summary": "Atualiza personagem de acordo com ID",
+        "description": "Atualiza personagem de acordo com ID",
+        "operationId": "updateCharacter",
+        "tags": ["Characters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the task to get, 24 character hexadecimal",
+            "schema": {
+              "type": "string",
+              "example": "62cb47b7e624ea87fa889bfa"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "character to update body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Character"
+              },
+              "example": {
+                "name": "Rick Sanchez - Teste Update",
+                "imageUrl": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Character"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/characters/delete/{id}": {
+      "delete": {
+        "summary": "Deleta personagem por ID",
+        "description": "Deleta personagem por ID",
+        "operationId": "deleteCharacter",
+        "tags": ["Characters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the task to get, 24 character hexadecimal",
+            "schema": {
+              "type": "string",
+              "example": "62cb40770bffe12e18c1aac5"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
+      "Character": {
+        "type": "object",
+        "properties": {
+          "user": { "type": "string" },
+          "name": { "type": "string" },
+          "imageUrl": { "type": "string" }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "photo": {
-            "type": "string"
-          }
-        }
-      },
-      "Characters": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "imageUrl": {
-            "type": "string"
-          }
+          "name": { "type": "string" },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" },
+          "photo": { "type": "string" }
         }
       }
-
     }
   }
 }
