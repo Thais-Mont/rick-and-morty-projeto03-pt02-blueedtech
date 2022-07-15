@@ -1,9 +1,6 @@
 const router = require('express').Router();
 const controllerPersonagens = require('../characteres/character.controller');
-const {
-  validId,
-  validObjectBody,
-} = require('./character.middlewares');
+const { validId, validObjectBody } = require('./character.middlewares');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger/swagger.json');
@@ -13,7 +10,11 @@ router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 router.get('/', controllerPersonagens.findAllPersonagensController);
 
-router.get('/find/:id', validId, controllerPersonagens.findByIdPersonagemController);
+router.get(
+  '/find/:id',
+  validId,
+  controllerPersonagens.findByIdPersonagemController,
+);
 router.post(
   '/create',
   validObjectBody,
@@ -31,6 +32,10 @@ router.delete(
   controllerPersonagens.deletePersonagemController,
 );
 
-router.get('/search', validObjectBody, controllerPersonagens.searchPersonagemController);
+router.get(
+  '/search',
+  validObjectBody,
+  controllerPersonagens.searchPersonagemController,
+);
 
 module.exports = router;

@@ -16,7 +16,10 @@ const createPersonagemService = async (newPersonagem) => {
 };
 
 const updatePersonagemService = async (idParam, editPersonagem) => {
-  const updatePersonagem = await Personagens.findByIdAndUpdate(idParam, editPersonagem);
+  const updatePersonagem = await Personagens.findByIdAndUpdate(
+    idParam,
+    editPersonagem,
+  );
   return updatePersonagem;
 };
 

@@ -1,4 +1,4 @@
-const userService = require("./user.service");
+const userService = require('./user.service');
 
 const createUserController = async (req, res) => {
   const { username, name, email, password, avatar } = req.body;
@@ -14,7 +14,7 @@ const createUserController = async (req, res) => {
 
   if (foundUser) {
     return res.status(400).send({
-      message: "Usuário já existe!",
+      message: 'Usuário já existe!',
     });
   }
 
@@ -24,7 +24,7 @@ const createUserController = async (req, res) => {
 
   if (!user) {
     return res.status(400).send({
-      message: "Erro ao criar Usuário!",
+      message: 'Erro ao criar Usuário!',
     });
   }
 
@@ -36,7 +36,7 @@ const findAllUserController = async (req, res) => {
 
   if (users.length === 0) {
     return res.status(400).send({
-      message: "Não existem usuários cadastrados!",
+      message: 'Não existem usuários cadastrados!',
     });
   }
 

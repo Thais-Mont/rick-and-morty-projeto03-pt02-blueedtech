@@ -13,7 +13,9 @@ const findAllPersonagensController = async (req, res) => {
 
 const findByIdPersonagemController = async (req, res) => {
   const idParam = req.params.id;
-  const chosenPersonagem = await personagensService.findByIdPersonagemService(idParam);
+  const chosenPersonagem = await personagensService.findByIdPersonagemService(
+    idParam,
+  );
   if (!chosenPersonagem) {
     return res.status(404).send({ message: 'Personagem não encontrado' });
   }
@@ -22,7 +24,9 @@ const findByIdPersonagemController = async (req, res) => {
 
 const createPersonagemController = async (req, res) => {
   const personagem = req.body;
-  const newPersonagem = await personagensService.createPersonagemService(personagem);
+  const newPersonagem = await personagensService.createPersonagemService(
+    personagem,
+  );
   res.status(201).send(newPersonagem);
 };
 
@@ -75,5 +79,5 @@ module.exports = {
   createPersonagemController,
   updatePersonagemController,
   deletePersonagemController,
-  searchPersonagemController
+  searchPersonagemController,
 };
