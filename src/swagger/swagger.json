@@ -213,51 +213,6 @@
         }
       }
     },
-    "/characters/search": {
-      "get": {
-        "summary": "Busca personagem por nome",
-        "description": "retorna personagem correspondente",
-        "operationId": "searchCharactersByName",
-        "tags": ["Characters"],
-        "security": [{ "bearerAuth": [] }],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": true,
-            "description": "nome do personagem",
-            "schema": {
-              "type": "string",
-              "example": "Taddy Mason"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
     "/characters/create": {
       "post": {
         "summary": "Criar um novo Personagem",
