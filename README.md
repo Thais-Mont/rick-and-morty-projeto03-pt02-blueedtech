@@ -1,7 +1,7 @@
 # Projeto Rick and Morty - Back-end CRUD
 
 Projeto desenvolvido durante o curso de FullStack.
-Usando as tecnologias: 
+Usando as tecnologias e ferramentas: 
 
     * JavaScript
     * NodeJS
@@ -9,9 +9,19 @@ Usando as tecnologias:
     * Cors
     * Nodemon
     * MongoDB
+    * Documentação Swagger
+    * Autenticação JWT
  
 
 ---
+### Documentação Swagger
+
+Você pode acessar a documentação swagger e fazer testes dos endpoints através do
+link:
+
+https://api-rick-and-morty-blueedtech.herokuapp.com/api-docs/
+
+![swagger](https://user-images.githubusercontent.com/78213513/179132015-b7446c2d-3a88-4724-bdf9-2f916cfbe417.PNG)
 ### Instruções
 
 * Primeiro é necessário instalar o Node.
@@ -33,14 +43,7 @@ npm run dev
 ```
 abrir servidor local http://localhost:3001
 ```
-### Documentação Swagger
 
-Você pode acessar a documentação swagger e fazer testes dos endpoints através do
-link:
-
-https://api-rick-and-morty-blueedtech.herokuapp.com/api-docs/
-
-![swagger](https://user-images.githubusercontent.com/78213513/179132015-b7446c2d-3a88-4724-bdf9-2f916cfbe417.PNG)
 
 ### Sugestão de Testes
 
