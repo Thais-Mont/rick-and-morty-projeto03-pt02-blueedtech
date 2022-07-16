@@ -1,34 +1,36 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const { findByIdUserService } = require('../user/user.service');
+const jwt = require("jsonwebtoken"); 
+const { findByIdUser } = require("../users/user.service"); 
 
 module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization; 
 
   if (!authHeader) {
-    return res.status(401).send({ message: 'O token não foi informado' });
+    return res.status(401).send({ message: "O token não foi informado!" }); 
   }
 
-  const parts = authHeader.split(' '); /* ["Bearer", "fjkdoifjifj(token"] */
+  const parts = authHeader.split(" "); 
 
   if (parts.length !== 2) {
-    return res.status(401).send({ message: 'Token inválido' });
+    return res.status(401).send({ message: "Token inválido!" }); 
   }
 
-  const [scheme, token] = parts;
+  const [scheme, token] = parts; 
 
-  if (!/^Bearer^/i.test(scheme)) {
-    return res.status(401).send({ message: 'Token mal formatado!' });
+  if (!/^Bearer$/i.test(scheme)) {
+    return res.status(401).send({ message: "Token malformatado!" }); 
   }
 
-  jwt.verify(token, process.env.SECRET, async (err, decoded) => {
-    const user = await findByIdUserService(decoded.id);
+ 
 
-    if (err || !user || !user.id) {
-      return res.status(401).send({ message: 'Token Inválido!' });
+  jwt.verify(token, process.env.SECRET, async (err, decoded) => { 
+    if (err) {
+      return res.status(401).send({ message: "Token inválido!" }); 
     }
-    req.userId = user.id;
 
-    return next();
+    const user = await findByIdUser(decoded.id); 
+
+    req.userId = user.id; 
+
+    return next(); 
   });
 };
