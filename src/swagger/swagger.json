@@ -231,7 +231,7 @@
               "example": {
                 "user": "62d0c3948b1e34732753c2a3",
                 "name": "Attila Starwar",
-                "imageUrl": "https://rickandmortyapi.com/api/character/avatar/28.jpeg"
+                "image": "https://rickandmortyapi.com/api/character/avatar/28.jpeg"
               }
             }
           }
@@ -290,7 +290,7 @@
               "example": {
                 "user": "62d0c3948b1e34732753c2a3",
                 "name": "Rick Sanchez - Teste Update",
-                "imageUrl": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+                "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
               }
             }
           }
@@ -375,7 +375,7 @@
         "properties": {
           "user": { "type": "string" },
           "name": { "type": "string" },
-          "imageUrl": { "type": "string" }
+          "image": { "type": "string" }
         }
       },
       "User": {

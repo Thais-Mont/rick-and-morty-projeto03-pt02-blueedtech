@@ -10,7 +10,7 @@ const validId = (req, res, next) => {
 
 const validObjectBody = (req, res, next) => {
   const personagem = req.body;
-  if (!personagem.name || !personagem.imageUrl) {
+  if (!personagem.name || !personagem.image) {
     return res.status(400).send({ message: 'Preencha todos os campos!' });
   }
   next();
